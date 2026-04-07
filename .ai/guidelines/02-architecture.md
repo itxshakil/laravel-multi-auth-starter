@@ -1,0 +1,30 @@
+- Use skinny controllers and fat services; controllers must remain thin and never perform heavy loops.
+- Limit the controller role to validation, authorization, and delegation.
+- Use the service layer for multi-model logic and 3rd-party integrations; keep services stateless.
+- Use single-purpose Actions for atomic units of work (e.g., `CreateOrder`).
+- Use idempotent Jobs for asynchronous or heavy tasks.
+- Use Models as data containers; keep logic within Scopes, Accessors, or Mutators without side effects.
+- Use strict PHP: include `declare(strict_types=1);`, and use mandatory typed properties and return types.
+- Avoid mixed types, dynamic properties, and magic array structures.
+- Use constructor injection instead of global helpers for dependency management.
+- Use constructor property promotion and readonly properties where applicable.
+- Use DTOs for passing immutable data across different layers.
+- Use Policies for all resource authorization logic.
+- Map backend folders as follows:
+    - `app/Actions/`: Single-purpose executors.
+    - `app/Services/`: Complex business logic.
+    - `app/DTOs/`: Data transfer objects.
+    - `app/Enums/`: Enumerations.
+    - `app/Jobs/`: Background tasks.
+    - `app/Models/`: Eloquent models.
+    - `app/Policies/`: Authorization logic.
+    - `app/Http/Requests/`: Form validation.
+    - `app/Http/Resources/`: API resources.
+- Map frontend folders as follows:
+    - `resources/js/pages/`: Inertia page components (one per route).
+    - `resources/js/components/`: Reusable Vue components.
+    - `resources/js/composables/`: Vue composables for shared logic.
+    - `resources/js/types/`: TypeScript interfaces and type definitions.
+    - `resources/js/actions/`: Auto-generated Wayfinder controller actions (do not edit).
+    - `resources/js/routes/`: Auto-generated Wayfinder named routes (do not edit).
+- Keep Inertia page components thin; delegate data-fetching logic to composables and business logic to backend Actions.

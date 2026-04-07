@@ -1,0 +1,25 @@
+- Do not put business logic inside Controllers or Blade templates.
+- Avoid Fat Controllers or massive "God" Services.
+- Do not abuse static helpers for business logic.
+- Do not use raw `request()` usage; use Form Requests and `$request->validated()`.
+- Do not return raw Eloquent models from APIs; use API Resources.
+- Avoid unpaginated large dataset queries.
+- Do not allow unvalidated input or mass assignment vulnerabilities.
+- Avoid global state mutation or hidden side effects.
+- Do not use `env()` outside of configuration files.
+- Never commit debug code (`dd()`, `dump()`, `ray()`, `console.log()`).
+- Remove commented-out production code and unused imports.
+- Never trust external input without validation and authorization.
+- Avoid excessive use of Facades within core domain logic.
+- Do not use outdated helper patterns or deprecated Laravel features.
+- Avoid inconsistent or non-deterministic code generation.
+- Generate strictly typed PHP with `declare(strict_types=1);`.
+- Follow PSR-12 and Laravel idiomatic structures.
+- Assume Rector, Larastan, and Pint are part of the pipeline.
+- Produce testable, modular architecture by default.
+- Ensure all code is statically analyzable and minimal.
+- Do not hardcode route URLs in frontend code; use Wayfinder (`@/actions/`, `@/routes/`).
+- Do not use Blade views for application pages; use Inertia + Vue components.
+- Do not manipulate `$page.props` directly outside of Inertia composables.
+- Do not use `<a href>` for in-app navigation; use Inertia `<Link>`.
+- Do not use raw `fetch` or `axios` for Inertia-managed requests; use `useForm()` or `useHttp()`.

@@ -1,0 +1,15 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+    - phar://phpstan.phar/conf/bleedingEdge.neon
+
+parameters:
+
+    paths:
+        - app
+
+    level: 5
+
+    tmpDir: .phpstan/cache
+
+    editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'

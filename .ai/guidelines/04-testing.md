@@ -1,0 +1,14 @@
+- Test the behavior of the application rather than its implementation.
+- Use Feature Tests for Controllers, HTTP requests, database interactions, and response flows.
+- Use Unit Tests for Services and isolated pure logic without database or I/O access.
+- Use Policy tests for all authorization logic.
+- Write tests using Pest v4 syntax: `it('does something', function () { ... })`.
+- Follow the AAA (Arrange, Act, Assert) pattern in every test using Pest's `expect()` API.
+- Use Pest datasets for data-driven tests instead of duplicating test cases.
+- Use `beforeEach()` for shared setup instead of duplicating arrange steps.
+- Use Fakes for external services (e.g., `Bus::fake()`, `Mail::fake()`, `Http::fake()`).
+- Use Factories for all test data; do not seed the database manually in tests.
+- Use standard assertions: `->assertStatus()`, `->assertInertia()`, `->assertDatabaseHas()`.
+- Use `assertInertia()` to verify Inertia responses return the correct component and props.
+- Ensure `pint`, `larastan`, and `rector` pass before finishing.
+- Maintain a minimum of 70% test coverage.

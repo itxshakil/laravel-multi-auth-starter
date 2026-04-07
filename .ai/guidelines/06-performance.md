@@ -1,0 +1,9 @@
+- Cache configurations, routes, and views in production environments.
+- Use `Cache::remember()` for frequently queried data.
+- Select only the necessary columns in database queries; avoid `select(*)`.
+- Build frontend assets using `npm run build` and lazy-load images and JavaScript.
+- Use Laravel Debugbar locally to identify slow queries and memory issues.
+- Use Inertia deferred props (`Inertia::defer()`) for non-critical or slow data to keep initial page load fast.
+- Use Inertia `prefetch` on `<Link>` components for predictable navigation to pre-warm data.
+- Tree-shake Wayfinder imports — only import the specific action functions you use, not entire modules.
+- Avoid returning large prop payloads from Inertia responses; paginate or defer where possible.

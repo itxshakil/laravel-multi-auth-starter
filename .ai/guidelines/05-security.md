@@ -1,0 +1,8 @@
+- Use Sanctum for SPA authentication (Fortify handles the backend routes).
+- Use Blade `{{ }}` for output escaping in any Blade files; avoid `{!! !!}` unless data is pre-sanitized.
+- Use `@csrf` in all HTML forms.
+- Never log sensitive information such as passwords, tokens, or personal identifiable information.
+- Run `composer audit` regularly to check for package vulnerabilities.
+- Use Policies for all resource authorization; never inline authorization checks in controllers.
+- Validate and authorize before any database write — never rely on frontend-only validation.
+- Use HTTPS in all environments; never expose credentials in URLs or logs.

@@ -1,0 +1,16 @@
+- Use plural `snake_case` for tables and `snake_case` for columns.
+- Use singular `model_id` for foreign keys.
+- Order pivot table names alphabetically (e.g., `post_tag`).
+- Ensure each migration has a single responsibility.
+- Use `constrained()->cascadeOnDelete()` for foreign key constraints.
+- Index all columns used in `where`, `order by`, or as foreign keys.
+- Define `fillable` or `guarded` attributes in models to prevent mass assignment.
+- Declare relationships explicitly in model classes.
+- Use the `casts()` method for defining attribute types (e.g., bool, array, enum).
+- Use Query Scopes for shared database filters.
+- Always use eager loading (`with()` or `load()`) to prevent N+1 query problems.
+- Use `paginate()` by default; avoid `all()` on large datasets.
+- Use Database Transactions for multi-step write operations.
+- Use `chunk()` or `lazy()` when processing large result sets.
+- Use `fake()` in factories and create environment-specific seeders.
+- Avoid raw SQL unless explicitly justified.

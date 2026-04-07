@@ -1,0 +1,19 @@
+- Prioritize readability over cleverness and consistency over creativity.
+- Use RESTful controllers only (index, store, show, update, destroy).
+- Move complex logic from controllers to Actions or Services.
+- Follow PSR-12 coding style.
+- Limit line length to 120 characters.
+- Use `snake_case` for database columns, `camelCase` for variables and methods, and `PascalCase` for classes.
+- Prefix methods with a verb (e.g., `updatePassword`).
+- Prefix boolean methods with `is` or `has` (e.g., `isActive`).
+- Use FormRequests for validation, Services for business logic, and Models for persistence.
+- Format API responses as `{"success": bool, "message": string, "data": {}}` with standard HTTP codes.
+- Use API Resources for all API responses; never return Eloquent models directly.
+- Use the `Storage` facade for file management and organize by entity (e.g., `users/{id}/avatar.jpg`).
+- Keep controllers under 30 lines per method and 8 methods per class.
+- Access validated data only via `$request->validated()`; never trust `request()` directly.
+- Store secrets in `.env` only and access them via `config()`.
+- Use Conventional Commits (`feat:`, `fix:`, `refactor:`, `test:`, `chore:`).
+- Use Pest for all PHP tests; name tests with `it('does something')` sentence style.
+- Use TypeScript in all frontend files; Vue components must use `<script setup lang="ts">`.
+- Use `camelCase` for TypeScript variables and `PascalCase` for component names and interfaces.
