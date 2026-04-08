@@ -22,6 +22,13 @@
     <p><strong>IP:</strong> {{ $data['ip'] ?? 'n/a' }}</p>
     <p><strong>User Agent:</strong> {{ $data['user_agent'] ?? 'n/a' }}</p>
 
+    @if (! empty($data['public_message']))
+        <p><strong>Public Message:</strong> {{ $data['public_message'] }}</p>
+    @endif
+
+    <h2>Exception Context</h2>
+    <pre>{{ json_encode($data['exception_context'] ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) }}</pre>
+
     <h2>Query</h2>
     <pre>{{ json_encode($data['query'] ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) }}</pre>
 

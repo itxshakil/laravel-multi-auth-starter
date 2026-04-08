@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Exceptions\ContextualException;
 use App\Exceptions\ErrorReporter;
 use App\Http\Middleware\RequestLogger;
 use App\Mail\ExceptionOccurred;
@@ -67,4 +68,31 @@ test('error reporting throttles duplicate exception notifications', function ():
     ErrorReporter::report($exception);
 
     Mail::assertSent(ExceptionOccurred::class, 1);
+});
+
+test('error reports include sanitized contextual exception metadata', function (): void {
+    Mail::fake();
+
+    $request = Request::create('https://librio.test/files', 'POST', [
+        'token' => 'request-secret',
+    ]);
+    $request->attributes->set(RequestLogger::REQUEST_ID_ATTRIBUTE, 'req-context');
+
+    app()->instance('request', $request);
+
+    $exception = new class('Upload processing failed', ['file' => 'avatar.png', 'operation' => 'profile-upload', 'token' => 'context-secret'], 'Something went wrong while processing the file.') extends ContextualException {};
+
+    ErrorReporter::report($exception);
+
+    Mail::assertSent(ExceptionOccurred::class, function (ExceptionOccurred $mail): bool {
+        expect($mail->data['public_message'])->toBe('Something went wrong while processing the file.')
+            ->and($mail->data['exception_context'])->toBe([
+                'file' => 'avatar.png',
+                'operation' => 'profile-upload',
+                'token' => '[REDACTED]',
+                'request_id' => 'req-context',
+            ]);
+
+        return true;
+    });
 });

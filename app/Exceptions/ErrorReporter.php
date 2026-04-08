@@ -11,14 +11,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use JsonException;
 use Throwable;
 
 final class ErrorReporter
 {
-    /**
-     * @throws JsonException
-     */
     public static function report(Throwable $throwable): void
     {
         if (! config('error-reporting.enabled', false)) {
@@ -61,19 +57,18 @@ final class ErrorReporter
         ));
     }
 
-    /**
-     * @throws JsonException
-     */
     private static function throttleKey(Throwable $throwable, ?Request $request): string
     {
-        return 'error-reporting:'.hash('sha256', json_encode([
-            'exception' => $throwable::class,
-            'message' => $throwable->getMessage(),
-            'file' => $throwable->getFile(),
-            'line' => $throwable->getLine(),
-            'method' => $request?->method(),
-            'url' => $request?->fullUrl(),
-        ], JSON_THROW_ON_ERROR));
+        $fingerprint = implode('|', [
+            $throwable::class,
+            $throwable->getMessage(),
+            $throwable->getFile(),
+            (string) $throwable->getLine(),
+            (string) $request?->method(),
+            (string) $request?->fullUrl(),
+        ]);
+
+        return 'error-reporting:'.hash('sha256', $fingerprint);
     }
 
     /**
@@ -81,7 +76,7 @@ final class ErrorReporter
      */
     private static function payload(Throwable $throwable, ?Request $request): array
     {
-        return [
+        $payload = [
             'exception' => $throwable::class,
             'message' => $throwable->getMessage(),
             'file' => $throwable->getFile(),
@@ -98,6 +93,22 @@ final class ErrorReporter
             'payload' => $request instanceof Request ? self::sanitizeData($request->request->all()) : [],
             'reported_at' => now()->toDateTimeString(),
         ];
+
+        $exceptionContext = self::exceptionContext($throwable);
+
+        if ($exceptionContext !== []) {
+            $payload['exception_context'] = self::sanitizeData($exceptionContext);
+        }
+
+        if (method_exists($throwable, 'publicMessage')) {
+            $publicMessage = $throwable->publicMessage();
+
+            if ($publicMessage !== '') {
+                $payload['public_message'] = $publicMessage;
+            }
+        }
+
+        return $payload;
     }
 
     private static function requestId(?Request $request): ?string
@@ -115,6 +126,20 @@ final class ErrorReporter
         $headerValue = $request->header(RequestLogger::HEADER_NAME);
 
         return is_string($headerValue) && $headerValue !== '' ? $headerValue : null;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private static function exceptionContext(Throwable $throwable): array
+    {
+        if (! method_exists($throwable, 'context')) {
+            return [];
+        }
+
+        $context = $throwable->context();
+
+        return is_array($context) ? $context : [];
     }
 
     /**
