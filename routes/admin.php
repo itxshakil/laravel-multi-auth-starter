@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::prefix('admin')->name('admin.')->group(function (): void {
-    Route::middleware('guest:admin')->group(function (): void {
+    Route::middleware('guest.admin')->group(function (): void {
         Route::get('login', [LoginController::class, 'create'])->name('login');
         Route::post('login', [LoginController::class, 'store']);
 
