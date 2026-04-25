@@ -1,5 +1,7 @@
 {
     "$schema": "https://www.schemastore.org/package.json",
+    "name": "laravel-multi-auth-starter",
+    "description": "Laravel Multi-Auth Starter — Vue 3, Inertia.js v3, Tailwind CSS v4, TypeScript",
     "private": true,
     "type": "module",
     "scripts": {

@@ -1,11 +1,18 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/vue-starter-kit",
+    "name": "itxshakil/laravel-multi-auth-starter",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "A Laravel 13 + Vue 3 + Inertia.js v3 multi-authentication starter kit with separate User and Admin guards, 2FA, email verification, request logging, error reporting, and full TypeScript support.",
     "keywords": [
+        "fortify",
+        "inertia",
         "laravel",
-        "framework"
+        "multi-auth",
+        "starter-kit",
+        "two-factor",
+        "typescript",
+        "vue",
+        "wayfinder"
     ],
     "license": "MIT",
     "require": {
