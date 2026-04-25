@@ -17,3 +17,4 @@ Route::get('media/{media}/temporary', [MediaController::class, 'temporary'])
     ->middleware('signed');
 
 require __DIR__.'/settings.php';
+require __DIR__.'/admin.php';

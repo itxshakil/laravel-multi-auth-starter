@@ -9,8 +9,11 @@ export type User = {
     [key: string]: unknown;
 };
 
+export type Admin = User;
+
 export type Auth = {
-    user: User;
+    user: User | null;
+    admin: Admin | null;
 };
 
 export type TwoFactorConfigContent = {
