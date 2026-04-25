@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -39,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Date::use(CarbonImmutable::class);
         $this->configureModelGuardrails();
+        $this->configureGuestRedirects();
 
         DB::prohibitDestructiveCommands(
             app()->isProduction(),
@@ -53,6 +56,17 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null,
         );
+    }
+
+    protected function configureGuestRedirects(): void
+    {
+        RedirectIfAuthenticated::redirectUsing(static function (Request $request): string {
+            if (str_starts_with($request->path(), 'admin')) {
+                return route('admin.dashboard');
+            }
+
+            return route('dashboard');
+        });
     }
 
     protected function configureModelGuardrails(): void

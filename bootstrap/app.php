@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Exceptions\ErrorReporter;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
-use App\Http\Middleware\RedirectIfAdminAuthenticated;
 use App\Http\Middleware\RequestLogger;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -19,7 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->alias(['guest.admin' => RedirectIfAdminAuthenticated::class]);
         $middleware->append(RequestLogger::class);
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
