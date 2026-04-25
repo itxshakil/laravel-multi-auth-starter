@@ -6,3 +6,9 @@
 - Use Policies for all resource authorization; never inline authorization checks in controllers.
 - Validate and authorize before any database write — never rely on frontend-only validation.
 - Use HTTPS in all environments; never expose credentials in URLs or logs.
+- Use the semantically correct HTTP method for every action: DELETE for deletions, PUT/PATCH for updates, POST for creations; never use GET for state-changing operations.
+- Always hash passwords using `Hash::make()`; never store passwords in plain text or with reversible encoding.
+- Encrypt sensitive third-party API keys before persisting them to the database using `Crypt::encrypt()`.
+- Use a dedicated database user per database with the minimum required privileges; never use a root or super-admin account for application connections.
+- Store all credentials in a password manager; every credential must be unique and never reused across services; enable two-factor authentication on every service that supports it.
+- Never share sensitive code, credentials, environment files, or database dumps via public or unencrypted channels.

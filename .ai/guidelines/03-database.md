@@ -1,7 +1,7 @@
 - Use plural `snake_case` for tables and `snake_case` for columns.
 - Use singular `model_id` for foreign keys.
 - Order pivot table names alphabetically (e.g., `post_tag`).
-- Ensure each migration has a single responsibility.
+- Ensure each migration has a single responsibility; only implement `up()` — do not write `down()` methods.
 - Use `constrained()->cascadeOnDelete()` for foreign key constraints.
 - Index all columns used in `where`, `order by`, or as foreign keys.
 - Define `fillable` or `guarded` attributes in models to prevent mass assignment.

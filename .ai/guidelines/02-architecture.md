@@ -7,7 +7,7 @@
 - Use strict PHP: include `declare(strict_types=1);`, and use mandatory typed properties and return types.
 - Avoid mixed types, dynamic properties, and magic array structures.
 - Use constructor injection instead of global helpers for dependency management.
-- Use constructor property promotion and readonly properties where applicable.
+- Use constructor property promotion for dependency injection; apply `readonly` only when the value must be truly immutable by design, not as a blanket default.
 - Use DTOs for passing immutable data across different layers.
 - Use Policies for all resource authorization logic.
 - Map backend folders as follows:

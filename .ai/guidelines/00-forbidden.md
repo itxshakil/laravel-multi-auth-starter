@@ -23,3 +23,8 @@
 - Do not manipulate `$page.props` directly outside of Inertia composables.
 - Do not use `<a href>` for in-app navigation; use Inertia `<Link>`.
 - Do not use raw `fetch` or `axios` for Inertia-managed requests; use `useForm()` or `useHttp()`.
+- Never use `else` after an early `return`; handle guard conditions first, then write the happy path last.
+- Do not declare multiple traits on a single `use` line inside a class; each trait must have its own `use` statement.
+- Do not use string concatenation (`.`) when string interpolation achieves the same result.
+- Do not write `down()` methods in migrations; only implement `up()`.
+- Do not use a GET request for any action that causes a state change; use DELETE, POST, or PUT.
